@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Post</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Edit Post</h1>
+    <form action="/edit-post/<%= post.id %>" method="POST">
+        <input type="text" name="title" value="<%= post.title %>" required>
+        <textarea name="content" required><%= post.content %></textarea>
+        <input type="text" name="author" value="<%= post.author %>" required>
+
+        <!-- Category Dropdown with pre-selected value -->
+        <label for="category">Category:</label>
+        <select name="category" id="category" required>
+            <% categories.forEach(category => { %>
+                <option value="<%= category %>" <% if (post.category === category) { %>selected<% } %>>
+                    <%= category %>
+                </option>
+            <% }); %>
+        </select>
+
+        <button type="submit">Update Post</button>
+    </form>
+</body>
+</html>

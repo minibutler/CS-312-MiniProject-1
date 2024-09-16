@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>All Blog Posts</h1>
+    
+    <!-- Category Filter Dropdown -->
+    <form action="/" method="GET">
+        <label for="category">Filter by category:</label>
+        <select name="category" id="category" onchange="this.form.submit()">
+            <option value="All" <% if (selectedCategory === 'All') { %>selected<% } %>>All</option>
+            <% categories.forEach(category => { %>
+                <option value="<%= category %>" <% if (selectedCategory === category) { %>selected<% } %>>
+                    <%= category %>
+                </option>
+            <% }); %>
+        </select>
+    </form>
+
+    <a href="/new-post">Create New Post</a>
+
+    <% posts.forEach(post => { %>
+        <div class="post">
+            <h2><%= post.title %> - <small>Category: <%= post.category %></small></h2>
+            <p><%= post.content %></p>
+            <p>By: <%= post.author %> | <%= post.createdAt.toDateString() %></p>
+            <a href="/edit-post/<%= post.id %>">Edit</a>
+            <form action="/delete-post/<%= post.id %>" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    <% }); %>
+</body>
+</html>
